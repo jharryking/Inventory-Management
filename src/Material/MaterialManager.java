@@ -5,11 +5,11 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 
 public class MaterialManager {
-    private Dictionary<Integer, Material> materialDict = new Hashtable<>();
+    private final Dictionary<Integer, Material> materialDict = new Hashtable<>();
 
 
     public boolean checkMaterialDict(int id){
-        return productDict.get(id) != null;
+        return materialDict.get(id) != null;
     }
 
     public Dictionary<Integer, Material> getProductDict(){
@@ -32,28 +32,28 @@ public class MaterialManager {
     }
 
     public boolean removeProduct(int id){
-        if (productDict.get(id) == null){
+        if (materialDict.get(id) == null){
             return false;
         }
-        productDict.remove(id);
+        materialDict.remove(id);
         return true;
     }
 
     public boolean createProduct(int id, int quantity, double price, String description, String location){
-        if (productDict.get(id) != null) {
+        if (materialDict.get(id) != null) {
             System.out.println("There is already a product with the same ID that has been created");
             return false;
         }
 
-        Product product = new Product(id, quantity, price, description, location);
-        productDict.put(id, product);
+        Material product = new Material(id, quantity, price, description, location);
+        materialDict.put(id, product);
         System.out.println("Product created Successfully!");
         return true;
     }
 
     public boolean buyProduct(int id, int buyQuantity){
-        Product product = productDict.get(id);
-        if (product == null) {
+        Material material = materialDict.get(id);
+        if (material == null) {
             System.out.println("Could not find product.");
             return false;
         }
@@ -63,12 +63,12 @@ public class MaterialManager {
             return false;
         }
 
-        product.setQuantity(buyQuantity + product.getQuantity());
+        material.setQuantity(buyQuantity + material.getQuantity());
         return true;
     }
 
     public boolean sellProduct(int id, int sellQuantity) {
-        Product product = productDict.get(id);
+        Material product = materialDict.get(id);
         if (product == null) {
             System.out.println("Could not find product.");
             return false;

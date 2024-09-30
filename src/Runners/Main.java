@@ -1,7 +1,7 @@
 package Runners;
-import Users.Manufacturer;
 import Users.UserManager;
 import Utilities.*;
+
 
 public class Main {
     public static void main(String[] args){
@@ -20,8 +20,6 @@ public class Main {
 
 
         } while(loginSelection != 1 && loginSelection !=2 && loginSelection !=3);
-
-        new
 
         UserManager userManager = new UserManager();
         switch (loginSelection){
