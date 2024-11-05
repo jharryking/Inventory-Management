@@ -9,8 +9,10 @@ public class DB {
 
     public static void main(String[] args){
         try{
-            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/login",
+            Connection connection = DriverManager.getConnection("jdbc:mysql://75.102.79.120/login",
                     DB_USER, DB_PW);
+
+            System.out.println("Successful connection");
 
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM USER_DATA");
