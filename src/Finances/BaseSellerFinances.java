@@ -4,6 +4,7 @@ import Product.Product;
 import Product.ProductManager;
 
 import java.util.Enumeration;
+import java.util.HashMap;
 
 public abstract class BaseSellerFinances extends BaseFinances {
     protected ProductManager productManager;
@@ -26,10 +27,9 @@ public abstract class BaseSellerFinances extends BaseFinances {
     public double getTotalProductCost(){
         double totalCost = 0;
 
-        Enumeration<Product> enumeration = productManager.getProductDict().elements();
-        while(enumeration.hasMoreElements()){
-            Product product = enumeration.nextElement();
-            totalCost += product.getPrice()*product.getQuantity();
+        HashMap<Integer, Product> productMap = productManager.getProductMap();
+        for (Product product : productMap.values()){
+            totalCost += product.getPrice() * product.getQuantity();
         }
 
         return totalCost;

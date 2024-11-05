@@ -2,29 +2,19 @@ package Product;
 
 import java.util.Dictionary;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 public class ProductManager {
 
-    private Dictionary<Integer, Product> productDict = new Hashtable<>();
+    private HashMap<Integer, Product> productMap = new HashMap<>();
 
-
-    public boolean checkProductDict(int id){
-        return productDict.get(id) != null;
+    public HashMap<Integer, Product> getProductMap(){
+        return productMap;
     }
-
-    public Dictionary<Integer, Product> getProductDict(){
-        return productDict;
-    }
-
-
-    public void changeProduct(Product product){
-
-    }
-
 
     public Product getProduct(int id){
-        Product product = productDict.get(id);
+        Product product = productMap.get(id);
         if (product == null){
             System.out.println("Did not find product with that ID");
             return null;
@@ -33,27 +23,27 @@ public class ProductManager {
     }
 
     public boolean removeProduct(int id){
-        if (productDict.get(id) == null){
+        if (productMap.get(id) == null){
             return false;
         }
-        productDict.remove(id);
+        productMap.remove(id);
         return true;
     }
 
     public boolean createProduct(int id, int quantity, double price, String description, String location){
-        if (productDict.get(id) != null) {
+        if (productMap.get(id) != null) {
             System.out.println("There is already a product with the same ID that has been created");
             return false;
         }
 
         Product product = new Product(id, quantity, price, description, location);
-        productDict.put(id, product);
+        productMap.put(id, product);
         System.out.println("Product created Successfully!");
         return true;
     }
 
     public boolean buyProduct(int id, int buyQuantity){
-        Product product = productDict.get(id);
+        Product product = productMap.get(id);
         if (product == null) {
             System.out.println("Could not find product.");
             return false;
@@ -69,7 +59,7 @@ public class ProductManager {
     }
 
     public boolean sellProduct(int id, int sellQuantity) {
-        Product product = productDict.get(id);
+        Product product = productMap.get(id);
         if (product == null) {
             System.out.println("Could not find product.");
             return false;
