@@ -9,7 +9,7 @@ public class DB {
 
     public static void main(String[] args){
         try{
-            Connection connection = DriverManager.getConnection("jdbc:mysql://75.102.79.120/login",
+            Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.56.1/user_info",
                     DB_USER, DB_PW);
 
             System.out.println("Successful connection");
