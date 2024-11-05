@@ -12,7 +12,7 @@ public class UserAccount {
 
     public boolean login() throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/login",
-                 "root", "Huntermagic1990!");
+                 "root", "");
 
 
 
