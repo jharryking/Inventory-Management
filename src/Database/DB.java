@@ -1,5 +1,7 @@
 package Database;
 
+import com.mysql.cj.protocol.Resultset;
+
 import java.math.BigDecimal;
 import java.sql.*;
 
@@ -30,9 +32,12 @@ public class DB {
              */
 
             //createAccount("harryseller", "1245", true);
-            login("harryseller", "1245");
-            createProduct (10, true, 30.00, "",
-                    "address",15413, "US", "product1");
+            //login("harryseller", "1245");
+            //createProduct (10, true, 30.00, "",
+            //        "address",15413, "US", "product1");
+
+            getCustomerProducts();
+
         } catch(SQLException e){
             e.printStackTrace();
         }
@@ -115,6 +120,22 @@ public class DB {
         return false;
     }
 
+
+    public static boolean getCustomerProducts(){
+        try{
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/user_info",
+                    DB_USER, DB_PW);
+            String q = "CALL get_customer_products()";
+            CallableStatement cs = connection.prepareCall(q);
+            cs.execute();
+            System.out.println(cs.getInt(1));
+
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+
+    }
 
 
 
