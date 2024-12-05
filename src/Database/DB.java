@@ -1,6 +1,5 @@
 package Database;
 
-import com.mysql.cj.protocol.Resultset;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -8,40 +7,45 @@ import java.sql.*;
 public class DB {
     private static String DB_USER = "guest";
     private static String DB_PW = "";
-    private static String userName;
-    private static String userPassword;
+    public static String userName;
+    public static String userPassword;
+    public static BigDecimal funds;
 
 
     public static void main(String[] args){
+        //createAccount("harryseller", "1245", true);
+        login("harryseller", "1245");
+        //updateUserDetails();
+        purchaseProduct(5, 10);
+        //createProduct (10, true, 30.00, "",
+        //        "address",15413, "US", "product1");
+
+        //getCustomerProducts();
+
+    }
+
+
+    public static boolean purchaseProduct(int productID, int purchaseQuantity){
         try{
             Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/user_info",
                     DB_USER, DB_PW);
-            System.out.println("Successful connection");
-
-
-            /*
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM USER_DATA");
-
-
-            while (resultSet.next()){
-                System.out.println(resultSet.getString("username"));
-                System.out.println(resultSet.getString("password"));
-                System.out.println(resultSet.getInt("id"));
-            }
-             */
-
-            //createAccount("harryseller", "1245", true);
-            //login("harryseller", "1245");
-            //createProduct (10, true, 30.00, "",
-            //        "address",15413, "US", "product1");
-
-            getCustomerProducts();
-
+            String q = "CALL purchase_product(?,?,?,?,?)";
+            CallableStatement cs = connection.prepareCall(q);
+            cs.setString(1,userName);
+            cs.setString(2, userPassword);
+            cs.setInt(3, productID);
+            cs.setInt(4, purchaseQuantity);
+            cs.registerOutParameter(5, Types.BOOLEAN);
+            cs.execute();
+            boolean result = cs.getBoolean(5);
+            System.out.println("Result: " + result);
+            return result;
         } catch(SQLException e){
             e.printStackTrace();
         }
+        return false;
     }
+
 
     public static boolean createAccount (String username, String password, boolean seller){
         try{
@@ -91,6 +95,27 @@ public class DB {
         return false;
     }
 
+    public static void updateUserDetails(){
+        try{
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/user_info",
+                    DB_USER, DB_PW);
+            String q = "CALL get_user_info(?,?)";
+            CallableStatement cs = connection.prepareCall(q);
+            cs.setString(1, userName);
+            cs.setString(2, userPassword);
+            ResultSet rs = cs.executeQuery();
+
+            while(rs.next()){
+                funds = rs.getBigDecimal("funds");
+                System.out.println(funds);
+            }
+
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
     public static boolean createProduct (int quantity, boolean available, double price,
                                          String description, String address, int zip,
                                          String country, String name){
@@ -127,8 +152,10 @@ public class DB {
                     DB_USER, DB_PW);
             String q = "CALL get_customer_products()";
             CallableStatement cs = connection.prepareCall(q);
-            cs.execute();
-            System.out.println(cs.getInt(1));
+            ResultSet rs = cs.executeQuery();
+            while(rs.next()){
+                System.out.println(rs.getString("seller_name"));
+            }
 
         } catch(SQLException e){
             e.printStackTrace();
