@@ -1,9 +1,7 @@
 package Product;
 
-import java.util.Dictionary;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Hashtable;
+import java.math.BigDecimal;
+import java.util.*;
 
 public class ProductManager {
 
@@ -22,6 +20,34 @@ public class ProductManager {
         return product;
     }
 
+    public void addProduct(Product product){
+        int id = product.getID();
+        if (productMap.get(id) != null){return;}
+        productMap.put(id, product);
+    }
+
+    public void changeProductMap(HashMap<Integer, Product> productMap){
+        this.productMap = productMap;
+    }
+
+    public void clear(){
+        productMap.clear();
+    }
+
+    public void printProductMap(){
+        System.out.println("Product Map: ");
+        for (Map.Entry<Integer,Product> entry : productMap.entrySet()){
+            Product product = entry.getValue();
+            product.printProduct();
+        }
+    }
+
+    public ArrayList<String> getProductNames(){
+        ArrayList<String> productNames = null;
+        return productNames;
+    }
+}
+/*
     public boolean removeProduct(int id){
         if (productMap.get(id) == null){
             return false;
@@ -75,4 +101,4 @@ public class ProductManager {
         System.out.println(sellQuantity + " units of " + id + " sold.");
         return true;
     }
-}
+ */

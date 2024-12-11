@@ -1,49 +1,46 @@
 package Product;
+
+import java.awt.image.BufferedImage;
+
 //test
 public class Product {
+    public ProductDetails details;
+    public ProductShippingDetails shippingDetails;
+    public final int id;
+    private final String sellerName;
+    private BufferedImage image;
 
-    private int id;
-    private int quantity;
-    private double price;
-    private String location;
-    private String description;
-    private String timePurchased; //The time the item was purchased by the retailer
-    private String timeSold; //The time the item was sold
-
-
-    Product(int id, int quantity, double price, String description, String location){
+    public Product(ProductDetails productDetails, ProductShippingDetails productShippingDetails, int id,
+                   String sellerName, BufferedImage image){
+        this.details = productDetails;
+        this.shippingDetails = productShippingDetails;
         this.id = id;
-        this.quantity = quantity;
-        this.price = price;
-        this.description = description;
-        this.location = location;
+        this.sellerName = sellerName;
+        this.image = image;
     }
 
-    public void changeProductDescription(String newDescription){
-        description = newDescription;
+    public BufferedImage getImage(){
+        return image;
     }
 
-
-    public void displayProduct(){
-        //Displays all variables
-        System.out.println("");
+    public void printProduct(){
+        System.out.println("ID: " + id + " | Name: " + details.getProductName()
+                            + " | Quantity: " + details.getQuantity()
+                            + " | Price: " + details.getPrice());
     }
 
-    public void setQuantity(int newQuantity){
-        quantity = newQuantity;
+    public String getSellerName() {
+        return sellerName;
+    }
+    public ProductDetails getProductDetails(){
+        return details;
     }
 
-    public double getPrice(){
-        return price;
+    public int getID (){
+        return id;
     }
 
-
-    public boolean checkAvailability(int id){
-        return quantity > 0;
-    }
-
-
-    public int getQuantity(){
-        return quantity;
+    public ProductShippingDetails getShippingDetails() {
+        return shippingDetails;
     }
 }
