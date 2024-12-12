@@ -11,9 +11,9 @@ import java.math.BigDecimal;
 public class Main {
     public static void main(String[] args){
         SellerAccount sellerAccount  = new SellerAccount("harryseller", "1245");
-        ProductDetails productDetails= new ProductDetails(10, BigDecimal.TEN, true, "description", "imagetest", "C:\\Users\\jharr\\OneDrive\\Desktop\\DBImages\\apple.jpg");
+        ProductDetails productDetails= new ProductDetails(10, BigDecimal.TEN, true, "description", "imagetest3", "C:\\Users\\jharr\\OneDrive\\Desktop\\DBImages\\apple.jpg");
         ProductShippingDetails productShippingDetails = new ProductShippingDetails("address", 11111, "country");
-        //sellerAccount.createProduct(productDetails, productShippingDetails);
+        sellerAccount.createProduct(productDetails, productShippingDetails);
         sellerAccount.getUserInfo().print();
         sellerAccount.updateProductManager("harryseller");
         //userAccount.getProductManager().printProductMap();

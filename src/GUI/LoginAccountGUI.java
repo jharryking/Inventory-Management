@@ -5,27 +5,17 @@ import java.awt.*;
 
 public class LoginAccountGUI {
 
-    private JPanel panel;
+    public JPanel panel;
     JButton createButton;
     JButton loginButton;
-    private JTextField usernameField;
-    private JTextField passwordField;
-
-    public String getPasswordFieldText() {
-        return passwordField.getText();
-    }
-
-    public String getUsernameField(){
-        return usernameField.getText();
-    }
-
-    JPanel getPanel(){
-        return panel;
-    }
+    public JTextField usernameField;
+    public JTextField passwordField;
 
     void init(){
         panel = new JPanel();
-
+        panel.setLayout(null);
+        panel.setBounds(0,0,800,600);
+        panel.setBackground(Color.BLUE);
         Font labelFont = new java.awt.Font("Arial", Font.BOLD, 30);
         Font textFieldFont = new java.awt.Font("Arial", Font.PLAIN, 20);
 
@@ -39,49 +29,40 @@ public class LoginAccountGUI {
         passwordField = new JTextField(15);
         passwordField.setFont(textFieldFont);
 
+
+        usernameLabel.setBounds(150,200,200,50);
+        usernameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        usernameLabel.setFont(labelFont);
+        panel.add(usernameLabel);
+
+        usernameField = new JTextField(9);
+        usernameField.setBounds(360,200,200,50);
+        usernameField.setHorizontalAlignment(JTextField.LEFT);
+        usernameField.setFont(labelFont);
+        panel.add(usernameField);
+
+        passwordLabel.setBounds(150,280,200,50);
+        passwordLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        passwordLabel.setFont(labelFont);
+        panel.add(passwordLabel);
+
+        passwordField = new JTextField(9);
+        passwordField.setBounds(360,280,200,50);
+        passwordField.setHorizontalAlignment(JTextField.LEFT);
+        passwordField.setFont(labelFont);
+        panel.add(passwordField);
+
+
+
         loginButton = new JButton("Login");
         loginButton.setFont(labelFont);
+        loginButton.setBounds(300,400,200,50);
+        panel.add(loginButton);
+
         createButton = new JButton("Click here to be sent to account creation");
-
-        GridBagConstraints c = new GridBagConstraints();
-        panel.setLayout(new GridBagLayout());
-
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 0;
-        c.gridy = 1;
-        c.insets =  new Insets (0,0,0,0);
-        panel.add(usernameLabel , c);
-
-        c.gridx = 1;
-        c.gridy = 1;
-        c.insets =  new Insets (0,20,0,0);
-        panel.add(usernameField, c);
-
-        c.gridx = 0;
-        c.gridy = 2;
-        c.insets =  new Insets (20,0,0,0);
-        panel.add(passwordLabel , c);
-
-        c.gridx = 1;
-        c.gridy = 2;
-        c.insets =  new Insets (20,20,0,0);
-        panel.add(passwordField, c);
-
-
-        c.gridx = 1;
-        c.gridy = 3;
-        c.fill = GridBagConstraints.NONE;
-        c.insets =  new Insets (20,0,0,0);
-        panel.add(loginButton, c);
-
-        c.gridx = 1;
-        c.gridy = 4;
-        c.fill = GridBagConstraints.NONE;
-        c.insets =  new Insets (20,0,0,0);
-        panel.add(createButton, c);
-
-        panel.setVisible(true);
-        System.out.println("VISIBLE");
+        //createButton.setFont(labelFont);
+        createButton.setBounds(245,500,300,50);
+        panel.add(createButton);
 
     }
 }

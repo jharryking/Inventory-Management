@@ -35,6 +35,12 @@ public class UserAccount {
         return productManager;
     }
 
+    public boolean addFunds(BigDecimal funds){
+        boolean result = db.addFunds(funds);
+        if (!result){return false;}
+        userInfo = db.getUserInfo();
+        return true;
+    }
 
     public boolean updateProductManager(String sellerName){
         HashMap<Integer, Product> productHashMap = db.getSellerProductsHashMap(sellerName);

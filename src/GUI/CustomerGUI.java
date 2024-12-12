@@ -9,91 +9,38 @@ import java.util.HashMap;
 
 public class CustomerGUI {
 
-
-    public static void main(String[] args){
-        CustomerGUI customerGUI = new CustomerGUI();
-        customerGUI.init();
-
-    }
-
-    private JTabbedPane pane;
-    private JPanel shopPanel, shopSellersPanel, shopTextPanel,
-    transactionPanel, infoPanel;
-
-
-    private JScrollPane scrollPane;
+    public JPanel topShopPanel, shopSellersPanel, transactionPanel, infoPanel;
+    public JButton shopButton, infoButton, myProductsButton;
 
     public void init(){
-        pane = new JTabbedPane();
-        shopPanel = new JPanel();
-
-        shopTextPanel = new JPanel();
-        shopTextPanel.add(new JLabel("Shop Page"));
-
+        topShopPanel = new JPanel();
         shopSellersPanel = new JPanel();
-        FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT, 30, 30);
-        shopSellersPanel.setLayout(flowLayout);
-
-
-
-
-        GridBagConstraints c = new GridBagConstraints();
-        shopPanel.setLayout(new GridBagLayout());
-
-
-        c.gridx = 0;
-        c.gridy = 0;
-
-
-        //shopPanel.setLayout(new GridLayout(2,1));
-        shopPanel.add(shopTextPanel, c);
-        c.gridx = 0;
-        c.gridy = 1;
-        shopPanel.add(shopSellersPanel, c);
-
-        scrollPane = new JScrollPane(shopPanel);
-
-
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
-        pane.addTab("Shop", scrollPane);
-
         transactionPanel = new JPanel();
         infoPanel = new JPanel();
 
+        topShopPanel.setLayout(null);
+        shopSellersPanel.setLayout(null);
 
+        topShopPanel.setBounds(0,0,800,75);
+        topShopPanel.setBackground(Color.cyan);
 
+        shopButton = new JButton("Shop");
+        shopButton.setBounds(0,0,100,75);
+        topShopPanel.add(shopButton);
 
+        infoButton = new JButton("Info");
+        infoButton.setBounds(120,0,100,75);
+        topShopPanel.add(infoButton);
 
+        myProductsButton = new JButton("My Products");
+        myProductsButton.setBounds(240,0,110,75);
+        topShopPanel.add(myProductsButton);
 
-
-        pane.addTab("Transactions", transactionPanel);
-        pane.add("Account Info", infoPanel);
-
+        shopSellersPanel.setBounds(0,75,800,725);
+        shopSellersPanel.setBackground(Color.BLUE);
 
         //Shop Panel init
 
     }
-
-    public void setShops(ArrayList<String> sellerList){
-        for (Component component : shopSellersPanel.getComponents()){
-            if (component instanceof JButton){
-                shopSellersPanel.remove(component);
-            }
-        }
-
-        for (String sellerName : sellerList){
-            System.out.println(sellerName);
-            shopSellersPanel.add(new JButton(sellerName+"'s Shop"));
-        }
-    }
-
-
-    JTabbedPane getTabbedPane(){
-        return pane;
-    }
-
-
-
 
 }

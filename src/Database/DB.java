@@ -44,6 +44,28 @@ public class DB {
         this.password = password;
     }
 
+    public boolean addFunds(BigDecimal funds){
+        try{
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/user_info",
+                    DB_USER, DB_PW);
+            String q = "CALL add_funds(?,?,?,?)";
+            CallableStatement cs = connection.prepareCall(q);
+            cs.setString(1,username);
+            cs.setString(2, password);
+            cs.setBigDecimal(3, funds);
+            cs.registerOutParameter(4, Types.BOOLEAN);
+            cs.execute();
+            boolean result = cs.getBoolean(4);
+            System.out.println("Result: " + result);
+            return result;
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+
+    }
+
+
     //updates db based on id and quantity
     public boolean invokePurchase(int productID, int purchaseQuantity){
         try{
@@ -88,8 +110,14 @@ public class DB {
 
     public boolean addProductEntry(ProductDetails productDetails, ProductShippingDetails shippingDetails){
         try{
-            File imageFile = new File(productDetails.getImagePath());
-            FileInputStream fis = new FileInputStream(imageFile);
+            File imageFile = new File("C:\\Users\\jharr\\OneDrive\\Desktop\\DBImages\\"+productDetails.getImagePath());
+            BufferedImage originalImage = ImageIO.read(imageFile);
+            Image scaledImage = originalImage.getScaledInstance(100,100,Image.SCALE_DEFAULT);
+            BufferedImage outputImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
+            outputImage.getGraphics().drawImage(scaledImage, 0, 0, null);
+            File outputFile = new File(productDetails.getImagePath());
+            ImageIO.write(outputImage, "jpg", outputFile);
+            FileInputStream fis = new FileInputStream(outputFile);
 
             Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/user_info",
                     DB_USER, DB_PW);
